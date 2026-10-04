@@ -8,7 +8,7 @@ import { GraduationCap } from 'lucide-react';
    Concise and strictly verified from Arayana Sood's CV:
    • Lovely Professional University (B.Tech CSE, CGPA 8.27, Minor: Data Science)
    • Sagar Public School (Intermediate - 82%)
-   • Delhi Public School (Matriculation - 78%)
+   • Asia Pacific International School (Matriculation - 78%)
    ─────────────────────────────────────────────────────────────────────────*/
 
 export function Education() {

@@ -31,9 +31,9 @@ export const educationList: EducationItem[] = [
     ],
   },
   {
-    id: 'dps-matriculation',
+    id: 'apis-matriculation',
     degree: 'Matriculation (10th Grade)',
-    institution: 'Delhi Public School',
+    institution: 'Asia Pacific International School',
     location: 'Madhya Pradesh, India',
     period: 'April 2021 – March 2022',
     score: 'Percentage: 78%',
