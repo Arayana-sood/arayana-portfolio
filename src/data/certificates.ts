@@ -1,4 +1,5 @@
 import type { CertificateItem } from '@/types';
+import { getAssetUrl } from '@/utils/asset';
 
 /* ─────────────────────────────────────────────────────────────────────────
    CERTIFICATES DATA
@@ -11,7 +12,7 @@ export const certificates: CertificateItem[] = [
     title: 'Cloud Craft Course',
     issuer: 'Lovely Professional University',
     year: 'Jul 2026',
-    fileUrl: '/certificates/LPU_Cloud_Craft_Certificate.pdf',
+    fileUrl: getAssetUrl('certificates/LPU_Cloud_Craft_Certificate.pdf'),
     skillsLearned: ['Cloud Architecture', 'AWS Fundamentals', 'DevOps Basics'],
     isPlaceholder: false,
   },
@@ -20,7 +21,7 @@ export const certificates: CertificateItem[] = [
     title: 'Database Management System',
     issuer: 'Infosys',
     year: 'Jul 2026',
-    fileUrl: '/certificates/Infosys_DBMS_Certificate.pdf',
+    fileUrl: getAssetUrl('certificates/Infosys_DBMS_Certificate.pdf'),
     skillsLearned: ['SQL', 'Relational Databases', 'Schema Design', 'Data Normalization'],
     isPlaceholder: false,
   },
@@ -29,7 +30,7 @@ export const certificates: CertificateItem[] = [
     title: 'Programming in Java',
     issuer: 'NeoColab',
     year: 'May 2026',
-    fileUrl: '/certificates/NeoColab_Java_Certificate.pdf',
+    fileUrl: getAssetUrl('certificates/NeoColab_Java_Certificate.pdf'),
     skillsLearned: ['Java', 'Object-Oriented Programming', 'Data Structures'],
     isPlaceholder: false,
   },
@@ -38,7 +39,7 @@ export const certificates: CertificateItem[] = [
     title: 'React.js',
     issuer: 'Tech Veda',
     year: 'Aug 2025',
-    fileUrl: '/certificates/Tech_Veda_ReactJS_Certificate.png',
+    fileUrl: getAssetUrl('certificates/Tech_Veda_ReactJS_Certificate.png'),
     skillsLearned: ['React', 'Hooks & State Management', 'Component Architecture', 'Vite'],
     isPlaceholder: false,
   },
@@ -47,7 +48,7 @@ export const certificates: CertificateItem[] = [
     title: 'Effective Time Management',
     issuer: "Masters' Union",
     year: 'Oct 2024',
-    fileUrl: '/certificates/Master_Union_Time_Management.png',
+    fileUrl: getAssetUrl('certificates/Master_Union_Time_Management.png'),
     skillsLearned: ['Time Management', 'Sprint Planning', 'Personal Productivity'],
     isPlaceholder: false,
   },

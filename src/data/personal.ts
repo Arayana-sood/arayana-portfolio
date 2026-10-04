@@ -1,4 +1,5 @@
 import type { PersonalInfo } from '@/types';
+import { getAssetUrl } from '@/utils/asset';
 
 /* ─────────────────────────────────────────────────────────────────────────
    PERSONAL INFORMATION — Arayana Sood
@@ -26,7 +27,7 @@ export const personal: PersonalInfo = {
   phone: '+91 7000846922',
   github: 'https://github.com/Arayana-sood',
   linkedin: 'https://www.linkedin.com/in/arayana-sood/',
-  resume: '/Arayana_Sood_CV.pdf',
+  resume: getAssetUrl('Arayana_Sood_CV.pdf'),
 
   socials: [
     {

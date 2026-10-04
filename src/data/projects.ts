@@ -1,4 +1,5 @@
 import type { Project } from '@/types';
+import { getAssetUrl } from '@/utils/asset';
 
 /* ─────────────────────────────────────────────────────────────────────────
    PROJECTS DATA & IN-DEPTH CASE STUDIES
@@ -27,7 +28,7 @@ export const projects: Project[] = [
     year: 'Sep 2026',
     githubUrl: 'https://github.com/Arayana-sood/NutriAI-personalized-diet-generation',
     liveUrl: 'https://nutriai-personalized-diet-generation.onrender.com',
-    paperUrl: '/research/HealthRiskAI_Research_Paper.pdf',
+    paperUrl: getAssetUrl('research/HealthRiskAI_Research_Paper.pdf'),
     caseStudy: {
       overview:
         'NutriAI is an intelligent healthcare and personalized diet recommendation platform backed by authored research ("HealthRiskAI: Multi-Disease Risk Prediction System Using Machine Learning"). It combines machine learning classification models with generative AI to evaluate disease risk factors and interpret clinical prescriptions into customized dietary guidance.',
