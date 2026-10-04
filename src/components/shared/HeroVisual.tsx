@@ -22,6 +22,7 @@ interface ProjectItem {
   tech: string;
   highlight: string;
   icon: React.ElementType;
+  url: string;
 }
 
 const PROJECTS: ProjectItem[] = [
@@ -32,6 +33,7 @@ const PROJECTS: ProjectItem[] = [
     tech: 'Python · FastAPI · Scikit-learn',
     highlight: '6 ML Models + Gemini API',
     icon: Sparkles,
+    url: 'https://github.com/Arayana-sood/NutriAI-personalized-diet-generation',
   },
   {
     id: 'shellquest',
@@ -40,6 +42,7 @@ const PROJECTS: ProjectItem[] = [
     tech: 'React · Socket.IO · xterm.js',
     highlight: 'Interactive Linux Terminal',
     icon: Terminal,
+    url: 'https://github.com/Arayana-sood/ShellQuest',
   },
   {
     id: 'process-viz',
@@ -48,6 +51,7 @@ const PROJECTS: ProjectItem[] = [
     tech: 'C · React · Canvas',
     highlight: '5 CPU Algorithms & Gantt',
     icon: Activity,
+    url: 'https://github.com/Arayana-sood/Process-Lifecycle-visualization-tool',
   },
   {
     id: 'tourism-analytics',
@@ -56,6 +60,7 @@ const PROJECTS: ProjectItem[] = [
     tech: 'Power BI · DAX · SQL',
     highlight: 'Interactive Tourism Dashboard',
     icon: BarChart2,
+    url: 'https://app.powerbi.com/view?r=eyJrIjoiOGY5OGI5ZmYtODA1ZC00NmIwLThlYjAtY2VkMjUxOTMyMzhjIiwidCI6ImUxNGU3M2ViLTUyNTEtNDM4OC04ZDY3LThmOWYyZTJkNWE0NiIsImMiOjEwfQ%3D%3D',
   },
 ];
 
@@ -147,16 +152,20 @@ export function HeroVisual({ className }: { className?: string }) {
             const isHovered = hoveredId === item.id;
 
             return (
-              <div
+              <a
                 key={item.id}
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 onMouseEnter={() => setHoveredId(item.id)}
                 className={cn(
-                  'group p-2.5 sm:p-3 rounded-xl transition-all duration-150 cursor-default',
+                  'group p-2.5 sm:p-3 rounded-xl transition-all duration-150 cursor-pointer block',
                   'border',
                   isHovered
                     ? 'bg-[--bg-elevated] border-[--border]'
                     : 'bg-transparent border-transparent hover:bg-[--bg-elevated]/50'
                 )}
+                aria-label={`Open ${item.name} (${item.highlight})`}
               >
                 <div className="flex items-start justify-between gap-2 min-w-0">
                   <div className="flex items-center gap-2.5 min-w-0 flex-1">
@@ -194,7 +203,7 @@ export function HeroVisual({ className }: { className?: string }) {
                     {item.highlight}
                   </span>
                 </div>
-              </div>
+              </a>
             );
           })}
         </div>

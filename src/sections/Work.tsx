@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Github } from 'lucide-react';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { AnimatedSection } from '@/components/shared/AnimatedSection';
 import { CaseStudyModal } from '@/components/shared/CaseStudyModal';
@@ -92,12 +92,25 @@ export function Work() {
                     </p>
                   </div>
 
-                  {/* Right: Technologies (3 cols) */}
-                  <div className="md:col-span-3 flex md:justify-end">
+                  {/* Right: Technologies & Quick Links (3 cols) */}
+                  <div className="md:col-span-3 flex items-center md:justify-end gap-2.5">
                     <span className="text-[11px] font-mono-text text-muted md:text-right line-clamp-1">
                       {project.tags.slice(0, 3).join(', ')}
                       {project.tags.length > 3 ? '...' : ''}
                     </span>
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        aria-label={`Open ${project.title} repository on GitHub`}
+                        className="p-1 rounded text-muted hover:text-accent transition-colors shrink-0"
+                        title="View GitHub Repository"
+                      >
+                        <Github size={14} />
+                      </a>
+                    )}
                   </div>
 
                 </div>
