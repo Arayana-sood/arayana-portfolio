@@ -1,0 +1,280 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   ARAYANA PORTFOLIO — GLOBAL STYLES & DESIGN SYSTEM
+   
+   Token philosophy:
+   • Semantic CSS custom properties control theming (dark/light)
+   • Tailwind v4 handles layout, spacing, typography scale
+   • Arbitrary value syntax [--token] bridges them in components
+   • All interactive elements respect prefers-reduced-motion
+   ─────────────────────────────────────────────────────────────────────────*/
+
+@import "tailwindcss";
+
+/* ── Typography registration ─────────────────────────────────────────── */
+@theme {
+  --font-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', 'Fira Code', monospace;
+  --font-serif: 'Newsreader', Georgia, Cambria, 'Times New Roman', serif;
+  --font-display: 'Instrument Serif', 'Newsreader', Georgia, serif;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   SEMANTIC DESIGN TOKENS
+   
+   DARK MODE (default)
+   Palette: warm charcoal — comfortable for extended viewing.
+   NOT near-black. Surfaces are visibly distinct from each other.
+   ─────────────────────────────────────────────────────────────────────────*/
+:root {
+
+  /* — Backgrounds ─────────────────────────────────────────────────────── */
+  /* Deep warm charcoal — noticeably lighter than #000, visually comfortable */
+  --bg:          #1B1917;  /* Page background                                */
+  --bg-surface:  #242220;  /* Cards, panels, sidebars                        */
+  --bg-elevated: #2C2A27;  /* Dropdowns, popovers, tooltips                  */
+  --bg-hover:    #333129;  /* Hover state on interactive surfaces             */
+
+  /* — Text ─────────────────────────────────────────────────────────────── */
+  --fg:          #EAE7E1;  /* Primary text — warm off-white, not pure #FFF   */
+  --fg-muted:    #9E9A93;  /* Secondary/supporting text                       */
+  --fg-subtle:   #6B6862;  /* Disabled, placeholder, very muted text          */
+
+  /* — Borders ──────────────────────────────────────────────────────────── */
+  --border:        #383530;  /* Default border                                */
+  --border-subtle: #2C2A27;  /* Dividers, very light separators               */
+
+  /* — Accent (warm amber) ─────────────────────────────────────────────── */
+  /* 
+   * --accent:      Used for backgrounds (buttons, chips), hover indicators.
+   * --accent-text: Used specifically for TEXT on light backgrounds. 
+   *                Same value in dark mode (amber is legible on dark bg).
+   *                Darkened in light mode for WCAG AA compliance.
+   * --accent-fg:   Text placed ON top of an amber background.
+   * --accent-muted: Very subtle amber tint for backgrounds (tags, callouts).
+   * --accent-hover: Slightly warmer for hover transitions on accent elements.
+   *
+   * RESTRAINT: Accent touches ≈10% of the UI. It marks what matters.
+   */
+  /* — Accent (LIGHT PEACH — soft, luminous, highly visible) ─────────── */
+  --accent:        #F4B59E;  /* Light peach primary                           */
+  --accent-text:   #F7C0AD;  /* Luminous light peach for text on dark         */
+  --accent-fg:     #1F1511;  /* Dark text placed ON peach surfaces            */
+  --accent-muted:  #38241D;  /* Deep warm peach tint for dark badges          */
+  --accent-hover:  #F9C7B4;  /* Lighter luminous peach hover                  */
+
+  /* — Shadows ──────────────────────────────────────────────────────────── */
+  /* Warm-tinted shadows instead of pure cold black — more natural feel     */
+  --shadow-sm: 0 1px 3px rgba(12, 10, 8, 0.45);
+  --shadow-md: 0 4px 14px rgba(12, 10, 8, 0.55);
+  --shadow-lg: 0 8px 30px rgba(12, 10, 8, 0.65);
+
+  /* — Transitions ──────────────────────────────────────────────────────── */
+  --ease-smooth:  cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   LIGHT MODE OVERRIDES
+   
+   Applied when html[data-theme="light"].
+   ─────────────────────────────────────────────────────────────────────────*/
+[data-theme="light"] {
+
+  /* — Backgrounds ─────────────────────────────────────────────────────── */
+  /* Crisp, clean, paper-like tones — zero murkiness, zero eye strain        */
+  --bg:          #F8F7F4;  /* Clean warm paper page background              */
+  --bg-surface:  #FFFFFF;  /* Crisp pure white for cards, modals, and panels */
+  --bg-elevated: #F3F1EC;  /* Soft warm off-white for inner containers/chips */
+  --bg-hover:    #EBE7DE;  /* Hover state on surfaces                       */
+
+  /* — Text (PROPER BLACK — No washed out gray) ─────────────────────── */
+  --fg:          #000000;  /* Primary text: pure crisp black                */
+  --fg-muted:    #0F0F0F;  /* Secondary text: rich deep black               */
+  --fg-subtle:   #262626;  /* Metadata & labels: deep black                 */
+
+  /* — Borders ──────────────────────────────────────────────────────────── */
+  --border:        #D8D3C8;  /* Defined, clean border                         */
+  --border-subtle: #E8E4DA;  /* Subtle dividers                               */
+
+  /* — Accent (LIGHT PEACH) ─────────────────────────────────────────────── */
+  --accent:        #F2A88D;  /* Light peach for buttons & accents             */
+  --accent-text:   #C85B38;  /* Crisp peach-terracotta for readable text       */
+  --accent-fg:     #FFFFFF;  /* Crisp white text ON peach buttons             */
+  --accent-muted:  #FCECE4;  /* Delicate soft peach background tint           */
+  --accent-hover:  #E89676;  /* Deeper peach hover                            */
+
+  /* — Shadows ──────────────────────────────────────────────────────────── */
+  --shadow-sm: 0 1px 3px rgba(20, 19, 17, 0.06);
+  --shadow-md: 0 4px 16px rgba(20, 19, 17, 0.08);
+  --shadow-lg: 0 12px 36px rgba(20, 19, 17, 0.12);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   BASE STYLES
+   ─────────────────────────────────────────────────────────────────────────*/
+@layer base {
+  /* Smooth transitions on theme switch — applied before paint             */
+  *, *::before, *::after {
+    transition-property: background-color, border-color, color;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-smooth);
+  }
+
+  /* But NOT on elements with explicit motion (Framer Motion handles them) */
+  [data-motion-safe] *, [data-no-transition] {
+    transition: none !important;
+  }
+
+  html {
+    font-family: var(--font-sans);
+    background-color: var(--bg);
+    color: var(--fg);
+    /* Smooth scroll — overridden to instant in reduced-motion */
+    scroll-behavior: smooth;
+    /* Prevent text size adjustment on iOS rotation */
+    -webkit-text-size-adjust: 100%;
+    /* Improve font rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Anchor sections require this offset so fixed navbar doesn't overlap  */
+  section[id] {
+    scroll-margin-top: 72px;
+  }
+
+  /* Accessible focus — amber ring, offset matches the surface             */
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Remove default focus for mouse users (kept for keyboard)             */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Text selection — subtle amber tint                                    */
+  ::selection {
+    background-color: var(--accent-muted);
+    color: var(--fg);
+  }
+
+  /* Scrollbar — matches dark surface (non-obtrusive)                     */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--fg-subtle);
+  }
+
+  /* Base typography */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--fg);
+  }
+
+  p {
+    line-height: 1.7;
+    color: var(--fg-muted);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  code, kbd, pre, samp {
+    font-family: var(--font-mono);
+  }
+
+  img, svg, video {
+    display: block;
+    max-width: 100%;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  /* Reduce all motion for users who prefer it                             */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   SEMANTIC UTILITY CLASSES
+   
+   Bridge between CSS custom properties and Tailwind components.
+   Use these in JSX instead of repeating [--token] arbitrary values.
+   ─────────────────────────────────────────────────────────────────────────*/
+@layer utilities {
+  /* Backgrounds */
+  .bg-base      { background-color: var(--bg); }
+  .bg-surface   { background-color: var(--bg-surface); }
+  .bg-elevated  { background-color: var(--bg-elevated); }
+  .bg-hover-state { background-color: var(--bg-hover); }
+  .bg-accent-fill { background-color: var(--accent); }
+  .bg-accent-dim  { background-color: var(--accent-muted); }
+
+  /* Text */
+  .text-primary   { color: var(--fg); }
+  .text-secondary { color: var(--fg-muted); }
+  .text-muted     { color: var(--fg-subtle); }
+  .text-accent    { color: var(--accent-text); }
+  .text-on-accent { color: var(--accent-fg); }
+
+  /* Borders */
+  .border-default { border-color: var(--border); }
+  .border-faint   { border-color: var(--border-subtle); }
+  .border-accent  { border-color: var(--accent); }
+
+  /* Shadows */
+  .shadow-warm-sm { box-shadow: var(--shadow-sm); }
+  .shadow-warm-md { box-shadow: var(--shadow-md); }
+  .shadow-warm-lg { box-shadow: var(--shadow-lg); }
+
+  /* Typography helpers */
+  .font-mono-text { font-family: var(--font-mono); }
+  .font-editorial { font-family: var(--font-display); }
+  .font-serif-heading { font-family: var(--font-serif); }
+
+  /* Accent top-border for panels (the thin amber line at top of cards)   */
+  .accent-top-border {
+    border-top: 2px solid var(--accent);
+  }
+}
+
+/* ── Scrollbar hidden — cross-browser, keeps scroll functionality ─────── */
+/* Used for horizontally scrollable tab bars on mobile                     */
+.scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
