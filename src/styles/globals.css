@@ -128,6 +128,12 @@
     transition: none !important;
   }
 
+  html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
   html {
     font-family: var(--font-sans);
     background-color: var(--bg);
@@ -140,6 +146,11 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+  }
+
+  body {
+    position: relative;
+    min-height: 100vh;
   }
 
   /* Anchor sections require this offset so fixed navbar doesn't overlap  */

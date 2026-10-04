@@ -26,7 +26,7 @@ export function Footer() {
           </div>
 
           {/* Right: Social links */}
-          <div className="flex items-center gap-5 text-xs font-mono-text text-secondary">
+          <div className="flex flex-wrap items-center gap-4 sm:gap-5 text-xs font-mono-text text-secondary">
             <a
               href={personal.github}
               target="_blank"
@@ -71,7 +71,7 @@ export function Footer() {
         </div>
 
         {/* Bottom copyright line */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-2 pt-6 border-t border-[--border-subtle] text-[11px] font-mono-text text-muted">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pt-6 border-t border-[--border-subtle] text-[11px] font-mono-text text-muted">
           <span>© {currentYear} {personal.name}. All rights reserved.</span>
           <span>B.Tech · Data Science Minor · 2028</span>
         </div>

@@ -63,7 +63,7 @@ export function CaseStudyModal({ project, onClose }: CaseStudyModalProps) {
             tabIndex={-1}
           >
             {/* Modal Header */}
-            <div className="sticky top-0 z-10 flex items-center justify-between px-6 sm:px-8 py-4 border-b border-[--border-subtle] bg-[--bg-surface]/95 backdrop-blur-md shadow-sm">
+            <div className="sticky top-0 z-10 flex items-center justify-between px-4 sm:px-8 py-3.5 sm:py-4 border-b border-[--border-subtle] bg-[--bg-surface]/95 backdrop-blur-md shadow-sm">
               <div className="flex items-center gap-3">
                 <span className="font-mono-text text-sm text-accent font-bold">
                   {project.number}
@@ -84,12 +84,12 @@ export function CaseStudyModal({ project, onClose }: CaseStudyModalProps) {
             </div>
 
             {/* Modal Body */}
-            <div className="p-6 sm:p-10 flex flex-col gap-8 sm:gap-9">
+            <div className="p-4 sm:p-10 flex flex-col gap-6 sm:gap-9">
               {/* Title & Subtitle — Pure White & Crisp Light Color */}
               <div>
                 <h2
                   id="modal-title"
-                  className="text-3xl sm:text-4xl lg:text-5xl font-normal font-editorial tracking-tight text-white leading-tight"
+                  className="text-2xl sm:text-4xl lg:text-5xl font-normal font-editorial tracking-tight text-white leading-tight"
                 >
                   {project.title}
                 </h2>

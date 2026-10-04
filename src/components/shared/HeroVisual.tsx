@@ -122,26 +122,26 @@ export function HeroVisual({ className }: { className?: string }) {
         )}
       >
         {/* Frame Top Header — Greeting & Context cleanly integrated INSIDE */}
-        <div className="px-5 py-4 border-b border-[--border-subtle] flex items-center justify-between bg-[--bg-elevated]/40">
+        <div className="px-4 sm:px-5 py-3.5 sm:py-4 border-b border-[--border-subtle] flex items-center justify-between bg-[--bg-elevated]/40">
           <div className="flex items-center gap-2.5">
             <span className="w-2 h-2 rounded-full bg-[--accent]" aria-hidden />
             <span className="text-xs font-editorial text-primary tracking-tight font-medium">
               Arayana Sood
             </span>
           </div>
-          <span className="text-[11px] font-mono-text text-muted uppercase tracking-wider">
+          <span className="text-[10px] sm:text-[11px] font-mono-text text-muted uppercase tracking-wider">
             3rd-Year · 2028
           </span>
         </div>
 
         {/* Frame Subtitle */}
-        <div className="px-5 pt-4 pb-2 flex items-center justify-between text-xs font-mono-text text-muted">
+        <div className="px-4 sm:px-5 pt-3.5 pb-2 flex items-center justify-between text-xs font-mono-text text-muted">
           <span className="uppercase tracking-widest text-[10px]">Project Work</span>
           <span className="text-[10px] text-accent">04 Selected</span>
         </div>
 
         {/* 4 Projects List — clean, spacious, zero overlapping */}
-        <div className="p-3.5 flex flex-col gap-2">
+        <div className="p-2.5 sm:p-3.5 flex flex-col gap-2">
           {PROJECTS.map((item) => {
             const Icon = item.icon;
             const isHovered = hoveredId === item.id;
@@ -151,18 +151,18 @@ export function HeroVisual({ className }: { className?: string }) {
                 key={item.id}
                 onMouseEnter={() => setHoveredId(item.id)}
                 className={cn(
-                  'group p-3 rounded-xl transition-all duration-150 cursor-default',
+                  'group p-2.5 sm:p-3 rounded-xl transition-all duration-150 cursor-default',
                   'border',
                   isHovered
                     ? 'bg-[--bg-elevated] border-[--border]'
                     : 'bg-transparent border-transparent hover:bg-[--bg-elevated]/50'
                 )}
               >
-                <div className="flex items-start justify-between gap-2">
-                  <div className="flex items-center gap-2.5">
+                <div className="flex items-start justify-between gap-2 min-w-0">
+                  <div className="flex items-center gap-2.5 min-w-0 flex-1">
                     <span
                       className={cn(
-                        'w-7 h-7 rounded-lg flex items-center justify-center transition-colors',
+                        'w-7 h-7 rounded-lg flex items-center justify-center transition-colors shrink-0',
                         isHovered
                           ? 'bg-[--accent] text-[--accent-fg]'
                           : 'bg-[--bg-elevated] text-accent'
@@ -170,27 +170,27 @@ export function HeroVisual({ className }: { className?: string }) {
                     >
                       <Icon size={14} aria-hidden />
                     </span>
-                    <div>
+                    <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5">
-                        <span className="font-semibold text-xs text-primary">
+                        <span className="font-semibold text-xs text-primary truncate">
                           {item.name}
                         </span>
                         <ArrowUpRight
                           size={11}
                           className={cn(
-                            'text-muted transition-opacity',
+                            'text-muted transition-opacity shrink-0',
                             isHovered ? 'opacity-100 text-accent' : 'opacity-0'
                           )}
                           aria-hidden
                         />
                       </div>
-                      <p className="text-[11px] font-mono-text text-muted mt-0.5">
+                      <p className="text-[10px] sm:text-[11px] font-mono-text text-muted mt-0.5 truncate">
                         {item.tech}
                       </p>
                     </div>
                   </div>
 
-                  <span className="text-[10px] font-mono-text text-accent text-right shrink-0 pt-0.5">
+                  <span className="text-[9px] sm:text-[10px] font-mono-text text-accent text-right shrink-0 pt-0.5">
                     {item.highlight}
                   </span>
                 </div>
@@ -200,7 +200,7 @@ export function HeroVisual({ className }: { className?: string }) {
         </div>
 
         {/* Subtle Footer Note Inside the Frame */}
-        <div className="px-5 py-3 border-t border-[--border-subtle] bg-[--bg-elevated]/30 flex items-center justify-between text-[11px] font-mono-text text-muted">
+        <div className="px-4 sm:px-5 py-3 border-t border-[--border-subtle] bg-[--bg-elevated]/30 flex flex-wrap items-center justify-between gap-1 text-[10px] sm:text-[11px] font-mono-text text-muted">
           <span>Machine Learning · Systems · BI</span>
           <span className="text-secondary font-medium">B.Tech Portfolio</span>
         </div>

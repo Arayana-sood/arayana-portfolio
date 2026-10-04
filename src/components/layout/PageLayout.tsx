@@ -14,11 +14,11 @@ interface PageLayoutProps {
 
 export function PageLayout({ children }: PageLayoutProps) {
   return (
-    <div className="min-h-screen flex flex-col bg-base text-primary">
+    <div className="min-h-screen flex flex-col bg-base text-primary w-full max-w-full overflow-x-hidden">
       <Navbar />
       <main
         id="main-content"
-        className="flex-1 pt-[68px]" /* offset fixed navbar */
+        className="flex-1 pt-[68px] w-full max-w-full overflow-x-hidden" /* offset fixed navbar */
         tabIndex={-1}              /* programmatically focusable for skip link */
       >
         {children}

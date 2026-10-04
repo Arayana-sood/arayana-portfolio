@@ -62,7 +62,7 @@ export function Contact() {
               <ArrowUpRight size={11} className="opacity-60" aria-hidden />
             </a>
 
-            <span className="text-[--border-subtle]">·</span>
+            <span className="text-[--border-subtle] hidden sm:inline">·</span>
 
             <a
               href={personal.linkedin}
@@ -75,7 +75,7 @@ export function Contact() {
               <ArrowUpRight size={11} className="opacity-60" aria-hidden />
             </a>
 
-            <span className="text-[--border-subtle]">·</span>
+            <span className="text-[--border-subtle] hidden sm:inline">·</span>
 
             <a
               href={`mailto:${personal.email}`}
@@ -85,7 +85,7 @@ export function Contact() {
               <span>{personal.email}</span>
             </a>
 
-            <span className="text-[--border-subtle]">·</span>
+            <span className="text-[--border-subtle] hidden sm:inline">·</span>
 
             <a
               href={`tel:${personal.phone.replace(/\s+/g, '')}`}

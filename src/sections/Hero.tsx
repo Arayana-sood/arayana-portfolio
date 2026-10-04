@@ -63,7 +63,7 @@ export function Hero() {
             {/* Large Statement Headline */}
             <motion.h1
               variants={shouldReduce ? {} : item}
-              className="text-4xl sm:text-5xl lg:text-6xl font-normal text-primary tracking-tight leading-[1.14]"
+              className="text-3xl sm:text-5xl lg:text-6xl font-normal text-primary tracking-tight leading-[1.18] sm:leading-[1.14] break-words"
             >
               Turning ideas and data into software that{' '}
               <span className="font-editorial italic font-normal text-accent">
@@ -75,7 +75,7 @@ export function Hero() {
             {/* Grounded Bio Paragraph */}
             <motion.p
               variants={shouldReduce ? {} : item}
-              className="text-base sm:text-lg text-secondary leading-relaxed max-w-xl font-normal"
+              className="text-sm sm:text-lg text-secondary leading-relaxed max-w-xl font-normal"
             >
               {personal.bio}
             </motion.p>
@@ -83,14 +83,14 @@ export function Hero() {
             {/* CTAs */}
             <motion.div
               variants={shouldReduce ? {} : item}
-              className="flex flex-wrap items-center gap-3 pt-1"
+              className="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-1"
             >
               {/* Primary: See my work */}
               <a
                 href="#work"
                 onClick={handleScrollToProjects}
                 className={cn(
-                  'inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full text-sm font-medium',
+                  'inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-medium',
                   'bg-[--accent] text-[--accent-fg] hover:bg-[--accent-hover]',
                   'transition-all duration-150 active:scale-[0.98]',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--accent] focus-visible:ring-offset-2'
@@ -109,7 +109,7 @@ export function Hero() {
                   });
                 }}
                 className={cn(
-                  'inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium',
+                  'inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-medium',
                   'border border-[--border] text-primary hover:border-[--accent] hover:text-accent',
                   'bg-transparent transition-all duration-150 active:bg-[--bg-surface]',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--accent] focus-visible:ring-offset-2'
@@ -124,7 +124,7 @@ export function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(
-                  'inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium',
+                  'inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-medium',
                   'border border-[--border] text-primary hover:border-[--accent] hover:text-accent',
                   'bg-transparent transition-all duration-150 active:bg-[--bg-surface]',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--accent] focus-visible:ring-offset-2'

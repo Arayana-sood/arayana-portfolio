@@ -74,12 +74,12 @@ export function Work() {
                       {project.number}
                     </span>
                     <div className="flex items-baseline gap-2">
-                      <h3 className="text-2xl sm:text-3xl font-editorial font-normal text-primary tracking-tight group-hover:text-accent transition-colors">
+                      <h3 className="text-xl sm:text-3xl font-editorial font-normal text-primary tracking-tight group-hover:text-accent transition-colors">
                         {project.title}
                       </h3>
                       <ArrowUpRight
                         size={14}
-                        className="text-muted opacity-0 -translate-x-1 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 text-accent transition-all duration-150"
+                        className="text-accent opacity-50 sm:opacity-0 sm:group-hover:opacity-100 -translate-x-0.5 sm:-translate-x-1 translate-y-0.5 sm:translate-y-1 sm:group-hover:translate-x-0 sm:group-hover:translate-y-0 transition-all duration-150 shrink-0"
                         aria-hidden
                       />
                     </div>
