@@ -209,39 +209,68 @@ export default function ProjectDocPage() {
           </div>
         </header>
 
-        {/* ── Main Two-Column Content: Left TOC, Right 15 Sections ── */}
-        <div className="py-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          {/* Sticky Table of Contents Sidebar (Desktop) */}
-          <aside className="hidden lg:block lg:col-span-3 sticky top-28 self-start max-h-[calc(100vh-140px)] overflow-y-auto pr-2">
-            <div className="p-4 rounded-xl bg-[--bg-surface] border border-[--border-subtle] flex flex-col gap-3">
-              <span className="text-[11px] font-mono-text uppercase tracking-widest text-accent font-semibold">
-                Table of Contents
-              </span>
-              <nav className="flex flex-col gap-1 text-xs font-mono-text" aria-label="Documentation sections">
-                {TOC_SECTIONS.map((sec) => {
-                  const isActive = activeToc === sec.id;
-                  return (
-                    <a
-                      key={sec.id}
-                      href={`#${sec.id}`}
-                      onClick={(e) => handleTocClick(e, sec.id)}
-                      className={cn(
-                        'py-1 px-2 rounded transition-colors text-left truncate',
-                        isActive
-                          ? 'bg-[--accent-muted] text-accent font-semibold'
-                          : 'text-muted hover:text-primary hover:bg-[--bg-hover]'
-                      )}
-                    >
-                      {sec.label}
-                    </a>
-                  );
-                })}
-              </nav>
+        {/* ── Table of Contents Index Card ────────────────────────── */}
+        <div className="my-8 p-5 sm:p-6 rounded-2xl bg-[--bg-surface] border border-[--border-subtle] flex flex-col gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[--border-subtle] pb-3">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[--accent]" />
+              <h2 className="text-xs font-mono-text uppercase tracking-widest text-accent font-semibold">
+                Documentation Index · 15 Technical Sections
+              </h2>
             </div>
-          </aside>
+            <span className="text-[11px] font-mono-text text-muted">
+              Click any section to jump directly ↘
+            </span>
+          </div>
 
-          {/* Right Content Area (9 cols) */}
-          <div className="lg:col-span-9 flex flex-col gap-14">
+          <nav className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2" aria-label="Quick jump index">
+            {TOC_SECTIONS.map((sec) => (
+              <a
+                key={sec.id}
+                href={`#${sec.id}`}
+                onClick={(e) => handleTocClick(e, sec.id)}
+                className={cn(
+                  'p-2 rounded-lg text-xs font-mono-text transition-all duration-150',
+                  'bg-[--bg-elevated] border border-[--border-subtle] hover:border-[--accent] hover:text-accent',
+                  'flex items-center gap-1.5 truncate text-secondary hover:bg-[--bg-surface]'
+                )}
+              >
+                <span className="text-accent font-semibold text-[10px] shrink-0">
+                  {sec.label.split('.')[0]}.
+                </span>
+                <span className="truncate">{sec.label.split('.')[1]}</span>
+              </a>
+            ))}
+          </nav>
+        </div>
+
+        {/* ── Sticky Section Navigation Bar ─────────────────────────── */}
+        <div className="sticky top-20 z-30 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-2.5 bg-[--bg]/95 backdrop-blur-md border-y border-[--border-subtle] mb-8 overflow-x-auto no-scrollbar flex items-center gap-2">
+          <span className="text-[10px] font-mono-text text-muted uppercase tracking-wider shrink-0 mr-1 hidden sm:inline">
+            Quick Jump:
+          </span>
+          {TOC_SECTIONS.map((sec) => {
+            const isActive = activeToc === sec.id;
+            return (
+              <a
+                key={sec.id}
+                href={`#${sec.id}`}
+                onClick={(e) => handleTocClick(e, sec.id)}
+                className={cn(
+                  'px-2.5 py-1 rounded-full text-[11px] font-mono-text shrink-0 transition-colors whitespace-nowrap',
+                  isActive
+                    ? 'bg-[--accent] text-[--accent-fg] font-medium shadow-warm-xs'
+                    : 'bg-[--bg-surface] text-muted hover:text-primary hover:bg-[--bg-elevated] border border-[--border-subtle]'
+                )}
+              >
+                {sec.label}
+              </a>
+            );
+          })}
+        </div>
+
+        {/* ── Main Centered Content: 15 Sections with Consistent Rhythm ── */}
+        <div className="flex flex-col gap-8 sm:gap-10">
             {/* 1. Project Overview */}
             <section id="overview" className="scroll-mt-28 flex flex-col gap-4">
               <div className="flex items-center gap-2 pb-2 border-b border-[--border-subtle]">
@@ -725,7 +754,6 @@ export default function ProjectDocPage() {
             </div>
           </div>
         </div>
-      </div>
-    </article>
-  );
-}
+      </article>
+    );
+  }
