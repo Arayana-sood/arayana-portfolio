@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Github, Linkedin, ArrowUpRight, FileText, ChevronDown } from 'lucide-react';
 import { HeroVisual } from '@/components/shared/HeroVisual';
-import { ArayanaConstellation } from '@/components/shared/ArayanaConstellation';
+import { NameConstellation } from '@/components/shared/NameConstellation';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { personal } from '@/data/personal';
 import { cn } from '@/utils/cn';
@@ -82,16 +82,8 @@ export function Hero() {
             initial={shouldReduce ? false : 'hidden'}
             animate="show"
           >
-            {/* Name & Personal Constellation Signature */}
-            <motion.div variants={shouldReduce ? {} : itemVariants} className="flex flex-wrap items-center gap-x-4 gap-y-2.5">
-              <div className="inline-flex items-center gap-2.5">
-                <span className="text-xl sm:text-2xl font-editorial tracking-tight text-primary font-normal">
-                  Arayana Sood
-                </span>
-                <ArayanaConstellation />
-              </div>
-
-              {/* Tagline with subtle role rotator */}
+            {/* Tagline with subtle role rotator */}
+            <motion.div variants={shouldReduce ? {} : itemVariants}>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[--bg-surface] border border-[--border-subtle]">
                 <span className="w-1.5 h-1.5 rounded-full bg-[--accent] animate-pulse" aria-hidden />
                 <AnimatePresence mode="wait">
@@ -107,6 +99,11 @@ export function Hero() {
                   </motion.span>
                 </AnimatePresence>
               </div>
+            </motion.div>
+
+            {/* Elegant Name Constellation Accent */}
+            <motion.div variants={shouldReduce ? {} : itemVariants} className="-mb-1">
+              <NameConstellation />
             </motion.div>
 
             {/* Large Statement Headline */}
