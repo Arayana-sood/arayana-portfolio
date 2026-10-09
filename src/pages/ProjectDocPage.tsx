@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
   Github,
@@ -9,6 +10,9 @@ import {
   AlertCircle,
   Layers,
   ArrowRight,
+  ListOrdered,
+  X,
+  ChevronRight,
 } from 'lucide-react';
 import { projectDocs } from '@/data/projectDocs';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
@@ -18,30 +22,32 @@ import { cn } from '@/utils/cn';
    PROJECT DOCUMENTATION PAGE
    A complete, publication-grade technical breakdown for each project.
    Fulfills all 15 required sections with high-contrast editorial hierarchy.
+   Features a floating side "Pop Corner" Index for on-demand section jumping.
    ─────────────────────────────────────────────────────────────────────────*/
 
 const TOC_SECTIONS = [
-  { id: 'overview', label: '1. Overview' },
-  { id: 'problem', label: '2. Problem Statement' },
-  { id: 'objectives', label: '3. Objectives' },
-  { id: 'features', label: '4. Features' },
-  { id: 'tech-stack', label: '5. Technology Stack' },
-  { id: 'architecture', label: '6. Architecture' },
-  { id: 'workflow', label: '7. Workflow & Data Flow' },
-  { id: 'methodology', label: '8. Methodology' },
-  { id: 'modules', label: '9. Key Modules' },
-  { id: 'testing', label: '10. Testing & Evaluation' },
-  { id: 'results', label: '11. Results & Outcomes' },
-  { id: 'challenges', label: '12. Challenges & Trade-offs' },
-  { id: 'limitations', label: '13. Limitations' },
-  { id: 'future-scope', label: '14. Future Scope' },
-  { id: 'resources', label: '15. Resources & References' },
+  { id: 'overview', number: '01', label: 'Project Overview' },
+  { id: 'problem', number: '02', label: 'Problem Statement' },
+  { id: 'objectives', number: '03', label: 'Objectives & Motivation' },
+  { id: 'features', number: '04', label: 'Features & Functionality' },
+  { id: 'tech-stack', number: '05', label: 'Technology Stack' },
+  { id: 'architecture', number: '06', label: 'System Architecture' },
+  { id: 'workflow', number: '07', label: 'Workflow & Data Flow' },
+  { id: 'methodology', number: '08', label: 'Implementation Methodology' },
+  { id: 'modules', number: '09', label: 'Important Modules' },
+  { id: 'testing', number: '10', label: 'Testing & Evaluation' },
+  { id: 'results', number: '11', label: 'Results & Outcomes' },
+  { id: 'challenges', number: '12', label: 'Challenges & Trade-offs' },
+  { id: 'limitations', number: '13', label: 'Limitations' },
+  { id: 'future-scope', number: '14', label: 'Future Scope' },
+  { id: 'resources', number: '15', label: 'References & Resources' },
 ];
 
 export default function ProjectDocPage() {
   const { projectId } = useParams<{ projectId: string }>();
   const shouldReduce = useReducedMotion();
   const [activeToc, setActiveToc] = useState<string>('overview');
+  const [isIndexOpen, setIsIndexOpen] = useState<boolean>(false);
 
   const doc = useMemo(() => {
     if (!projectId) return null;
@@ -79,6 +85,18 @@ export default function ProjectDocPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Handle ESC key to close side drawer
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsIndexOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const currentSection = TOC_SECTIONS.find((s) => s.id === activeToc);
+  const currentSectionNumber = currentSection?.number || '01';
+
   if (!doc) {
     return (
       <div className="min-h-screen pt-28 pb-20 px-4 sm:px-6 flex flex-col items-center justify-center text-center">
@@ -97,8 +115,8 @@ export default function ProjectDocPage() {
     );
   }
 
-  const handleTocClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
+  const handleJumpToSection = (id: string) => {
+    setIsIndexOpen(false);
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: shouldReduce ? 'auto' : 'smooth' });
@@ -209,68 +227,8 @@ export default function ProjectDocPage() {
           </div>
         </header>
 
-        {/* ── Table of Contents Index Card ────────────────────────── */}
-        <div className="my-8 p-5 sm:p-6 rounded-2xl bg-[--bg-surface] border border-[--border-subtle] flex flex-col gap-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[--border-subtle] pb-3">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[--accent]" />
-              <h2 className="text-xs font-mono-text uppercase tracking-widest text-accent font-semibold">
-                Documentation Index · 15 Technical Sections
-              </h2>
-            </div>
-            <span className="text-[11px] font-mono-text text-muted">
-              Click any section to jump directly ↘
-            </span>
-          </div>
-
-          <nav className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2" aria-label="Quick jump index">
-            {TOC_SECTIONS.map((sec) => (
-              <a
-                key={sec.id}
-                href={`#${sec.id}`}
-                onClick={(e) => handleTocClick(e, sec.id)}
-                className={cn(
-                  'p-2 rounded-lg text-xs font-mono-text transition-all duration-150',
-                  'bg-[--bg-elevated] border border-[--border-subtle] hover:border-[--accent] hover:text-accent',
-                  'flex items-center gap-1.5 truncate text-secondary hover:bg-[--bg-surface]'
-                )}
-              >
-                <span className="text-accent font-semibold text-[10px] shrink-0">
-                  {sec.label.split('.')[0]}.
-                </span>
-                <span className="truncate">{sec.label.split('.')[1]}</span>
-              </a>
-            ))}
-          </nav>
-        </div>
-
-        {/* ── Sticky Section Navigation Bar ─────────────────────────── */}
-        <div className="sticky top-20 z-30 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-2.5 bg-[--bg]/95 backdrop-blur-md border-y border-[--border-subtle] mb-8 overflow-x-auto no-scrollbar flex items-center gap-2">
-          <span className="text-[10px] font-mono-text text-muted uppercase tracking-wider shrink-0 mr-1 hidden sm:inline">
-            Quick Jump:
-          </span>
-          {TOC_SECTIONS.map((sec) => {
-            const isActive = activeToc === sec.id;
-            return (
-              <a
-                key={sec.id}
-                href={`#${sec.id}`}
-                onClick={(e) => handleTocClick(e, sec.id)}
-                className={cn(
-                  'px-2.5 py-1 rounded-full text-[11px] font-mono-text shrink-0 transition-colors whitespace-nowrap',
-                  isActive
-                    ? 'bg-[--accent] text-[--accent-fg] font-medium shadow-warm-xs'
-                    : 'bg-[--bg-surface] text-muted hover:text-primary hover:bg-[--bg-elevated] border border-[--border-subtle]'
-                )}
-              >
-                {sec.label}
-              </a>
-            );
-          })}
-        </div>
-
-        {/* ── Main Centered Content: 15 Sections with Consistent Rhythm ── */}
-        <div className="flex flex-col gap-8 sm:gap-10">
+        {/* ── Main Centered Content: 15 Comprehensive Sections ───────── */}
+        <div className="pt-8 sm:pt-10 flex flex-col gap-8 sm:gap-10">
             {/* 1. Project Overview */}
             <section id="overview" className="scroll-mt-28 flex flex-col gap-4">
               <div className="flex items-center gap-2 pb-2 border-b border-[--border-subtle]">
@@ -754,6 +712,125 @@ export default function ProjectDocPage() {
             </div>
           </div>
         </div>
+
+        {/* ── Floating Pop Corner Trigger Button ────────────────────── */}
+        <aside aria-label="Quick jump floating navigation" className="fixed bottom-6 right-6 z-40">
+          <motion.button
+            whileHover={shouldReduce ? {} : { scale: 1.05, y: -2 }}
+            whileTap={shouldReduce ? {} : { scale: 0.95 }}
+            onClick={() => setIsIndexOpen((prev) => !prev)}
+            className={cn(
+              'flex items-center gap-2.5 px-4 py-2.5 rounded-full shadow-2xl transition-all duration-200',
+              'bg-[--bg-surface]/95 backdrop-blur-md border border-[--border] hover:border-[--accent]',
+              'text-primary hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--accent]'
+            )}
+            aria-expanded={isIndexOpen}
+            aria-controls="documentation-pop-corner"
+            title="Open documentation index (15 sections)"
+          >
+            <ListOrdered size={16} className="text-accent shrink-0" />
+            <span className="text-xs font-mono-text font-medium">Index</span>
+            <span className="px-2 py-0.5 rounded-full bg-[--accent-muted] text-[10px] font-mono-text text-accent font-bold border border-[--accent]/30">
+              {currentSectionNumber} / 15
+            </span>
+          </motion.button>
+        </aside>
+
+        {/* ── Slide-Out Pop Corner Drawer / Modal ───────────────────── */}
+        <AnimatePresence>
+          {isIndexOpen && (
+            <div className="fixed inset-0 z-50 flex justify-end" id="documentation-pop-corner">
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setIsIndexOpen(false)}
+                className="fixed inset-0 bg-black/60 backdrop-blur-xs"
+                aria-hidden
+              />
+
+              {/* Slide-out drawer panel */}
+              <motion.div
+                initial={shouldReduce ? { opacity: 0 } : { x: '100%' }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={shouldReduce ? { opacity: 0 } : { x: '100%' }}
+                transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
+                className="relative w-full max-w-sm h-full bg-[--bg-surface] border-l border-[--border] shadow-2xl flex flex-col z-10 overflow-hidden"
+                role="dialog"
+                aria-modal="true"
+                aria-label="Documentation sections index"
+              >
+                {/* Drawer Header */}
+                <div className="p-4 sm:p-5 border-b border-[--border-subtle] flex items-center justify-between bg-[--bg-elevated]/50">
+                  <div className="flex flex-col gap-0.5">
+                    <div className="flex items-center gap-2">
+                      <ListOrdered size={15} className="text-accent" />
+                      <span className="text-xs font-mono-text uppercase tracking-widest text-accent font-bold">
+                        Section Index
+                      </span>
+                    </div>
+                    <span className="text-[11px] font-mono-text text-muted">
+                      15 Technical Sections
+                    </span>
+                  </div>
+
+                  <button
+                    onClick={() => setIsIndexOpen(false)}
+                    className="w-8 h-8 rounded-lg flex items-center justify-center text-muted hover:text-primary hover:bg-[--bg-hover] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--accent]"
+                    aria-label="Close index drawer"
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
+
+                {/* Drawer Sections List */}
+                <nav className="flex-1 overflow-y-auto p-3 sm:p-4 flex flex-col gap-1.5" aria-label="Documentation sections list">
+                  {TOC_SECTIONS.map((sec) => {
+                    const isActive = activeToc === sec.id;
+                    return (
+                      <button
+                        key={sec.id}
+                        onClick={() => handleJumpToSection(sec.id)}
+                        className={cn(
+                          'w-full p-2.5 rounded-xl text-left transition-all duration-150 flex items-center justify-between group',
+                          isActive
+                            ? 'bg-[--accent-muted] text-accent font-semibold border border-[--accent]/40'
+                            : 'text-secondary hover:text-primary hover:bg-[--bg-elevated] border border-transparent'
+                        )}
+                      >
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <span className={cn(
+                            'font-mono-text text-xs shrink-0',
+                            isActive ? 'text-accent font-bold' : 'text-muted'
+                          )}>
+                            {sec.number}
+                          </span>
+                          <span className="text-xs font-mono-text truncate">
+                            {sec.label}
+                          </span>
+                        </div>
+                        <ChevronRight
+                          size={13}
+                          className={cn(
+                            'shrink-0 transition-transform duration-150',
+                            isActive ? 'text-accent translate-x-0.5' : 'text-muted/40 group-hover:text-primary group-hover:translate-x-0.5'
+                          )}
+                        />
+                      </button>
+                    );
+                  })}
+                </nav>
+
+                {/* Drawer Footer */}
+                <div className="p-3.5 border-t border-[--border-subtle] bg-[--bg-elevated]/30 flex items-center justify-between text-[11px] font-mono-text text-muted">
+                  <span>Active: {currentSectionNumber} / 15</span>
+                  <span>Press ESC to close</span>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
       </article>
     );
   }
