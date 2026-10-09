@@ -1,5 +1,6 @@
-import { motion } from 'framer-motion';
-import { Github, Linkedin, ArrowUpRight, FileText } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Github, Linkedin, ArrowUpRight, FileText, ChevronDown } from 'lucide-react';
 import { HeroVisual } from '@/components/shared/HeroVisual';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { personal } from '@/data/personal';
@@ -7,32 +8,59 @@ import { cn } from '@/utils/cn';
 
 /* ─────────────────────────────────────────────────────────────────────────
    HERO SECTION
-   Spacious but purposeful layout without excessive vertical gaps.
-   Clear typography hierarchy, grounded student perspective, no buzzwords.
+   Polished editorial introduction with intentional, restrained animations.
+   Features:
+   • Staggered fade-up entrance
+   • Subtle role rotating badge
+   • Smooth scroll indicator
+   • Links directly to #projects (CV Section 02)
    ─────────────────────────────────────────────────────────────────────────*/
 
-const container = {
+const ROLES = [
+  '3rd-Year B.Tech CSE · Graduating 2028',
+  'Data Science Minor · Lovely Professional University',
+  'Machine Learning & Systems Developer',
+];
+
+const containerVariants = {
   hidden: {},
   show: {
-    transition: { staggerChildren: 0.08, delayChildren: 0.04 },
+    transition: { staggerChildren: 0.09, delayChildren: 0.05 },
   },
 };
 
-const item = {
-  hidden: { opacity: 0, y: 14 },
+const itemVariants = {
+  hidden: { opacity: 0, y: 16 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.45, ease: [0.4, 0, 0.2, 1] },
+    transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
   },
 };
 
 export function Hero() {
   const shouldReduce = useReducedMotion();
+  const [roleIndex, setRoleIndex] = useState(0);
+
+  // Subtle role rotation interval
+  useEffect(() => {
+    if (shouldReduce) return;
+    const timer = setInterval(() => {
+      setRoleIndex((prev) => (prev + 1) % ROLES.length);
+    }, 3800);
+    return () => clearInterval(timer);
+  }, [shouldReduce]);
 
   const handleScrollToProjects = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    document.getElementById('work')?.scrollIntoView({
+    document.getElementById('projects')?.scrollIntoView({
+      behavior: shouldReduce ? 'auto' : 'smooth',
+    });
+  };
+
+  const handleScrollToSkills = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    document.getElementById('skills')?.scrollIntoView({
       behavior: shouldReduce ? 'auto' : 'smooth',
     });
   };
@@ -41,7 +69,7 @@ export function Hero() {
     <section
       id="hero"
       aria-label="Introduction"
-      className="relative pt-8 pb-12 sm:pt-12 sm:pb-16 lg:pt-14 lg:pb-18 px-4 sm:px-6 lg:px-8"
+      className="relative pt-8 pb-14 sm:pt-12 sm:pb-18 lg:pt-14 lg:pb-20 px-4 sm:px-6 lg:px-8"
     >
       <div className="w-full max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
@@ -49,20 +77,32 @@ export function Hero() {
           {/* ── Left column: editorial typography and intro ──────────── */}
           <motion.div
             className="lg:col-span-7 flex flex-col gap-5 max-w-2xl"
-            variants={shouldReduce ? {} : container}
+            variants={shouldReduce ? {} : containerVariants}
             initial={shouldReduce ? false : 'hidden'}
             animate="show"
           >
-            {/* Tagline / Overline */}
-            <motion.div variants={shouldReduce ? {} : item}>
-              <span className="text-xs font-mono-text uppercase tracking-widest text-accent font-medium">
-                3rd-Year B.Tech · Data Science Minor · 2028
-              </span>
+            {/* Tagline with subtle role rotator */}
+            <motion.div variants={shouldReduce ? {} : itemVariants}>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[--bg-surface] border border-[--border-subtle]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[--accent] animate-pulse" aria-hidden />
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={roleIndex}
+                    initial={shouldReduce ? { opacity: 1 } : { opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={shouldReduce ? { opacity: 0 } : { opacity: 0, y: -4 }}
+                    transition={{ duration: 0.25 }}
+                    className="text-xs font-mono-text uppercase tracking-wider text-accent font-medium truncate"
+                  >
+                    {ROLES[roleIndex]}
+                  </motion.span>
+                </AnimatePresence>
+              </div>
             </motion.div>
 
             {/* Large Statement Headline */}
             <motion.h1
-              variants={shouldReduce ? {} : item}
+              variants={shouldReduce ? {} : itemVariants}
               className="text-3xl sm:text-5xl lg:text-6xl font-normal text-primary tracking-tight leading-[1.18] sm:leading-[1.14] break-words"
             >
               Turning ideas and data into software that{' '}
@@ -74,7 +114,7 @@ export function Hero() {
 
             {/* Grounded Bio Paragraph */}
             <motion.p
-              variants={shouldReduce ? {} : item}
+              variants={shouldReduce ? {} : itemVariants}
               className="text-sm sm:text-lg text-secondary leading-relaxed max-w-xl font-normal"
             >
               {personal.bio}
@@ -82,12 +122,12 @@ export function Hero() {
 
             {/* CTAs */}
             <motion.div
-              variants={shouldReduce ? {} : item}
+              variants={shouldReduce ? {} : itemVariants}
               className="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-1"
             >
               {/* Primary: See my work */}
               <a
-                href="#work"
+                href="#projects"
                 onClick={handleScrollToProjects}
                 className={cn(
                   'inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-medium',
@@ -96,18 +136,13 @@ export function Hero() {
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--accent] focus-visible:ring-offset-2'
                 )}
               >
-                See my work
+                See my projects
               </a>
 
-              {/* Secondary: Contact Me */}
+              {/* Secondary: Skills index */}
               <a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById('contact')?.scrollIntoView({
-                    behavior: shouldReduce ? 'auto' : 'smooth',
-                  });
-                }}
+                href="#skills"
+                onClick={handleScrollToSkills}
                 className={cn(
                   'inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-medium',
                   'border border-[--border] text-primary hover:border-[--accent] hover:text-accent',
@@ -115,7 +150,7 @@ export function Hero() {
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--accent] focus-visible:ring-offset-2'
                 )}
               >
-                Contact Me
+                Skills index
               </a>
 
               {/* Secondary: Download CV */}
@@ -137,7 +172,7 @@ export function Hero() {
 
             {/* Social quick links */}
             <motion.div
-              variants={shouldReduce ? {} : item}
+              variants={shouldReduce ? {} : itemVariants}
               className="flex items-center gap-4 text-xs font-mono-text text-muted pt-1"
             >
               <span className="uppercase tracking-wider text-[11px]">Connect:</span>
@@ -173,6 +208,28 @@ export function Hero() {
           </div>
 
         </div>
+
+        {/* ── Subtle bottom scroll hint ──────────────────────────────── */}
+        <motion.div
+          initial={shouldReduce ? false : { opacity: 0 }}
+          animate={shouldReduce ? false : { opacity: 1 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
+          className="mt-12 sm:mt-16 flex items-center justify-center gap-2 text-xs font-mono-text text-muted select-none"
+        >
+          <a
+            href="#skills"
+            onClick={handleScrollToSkills}
+            className="inline-flex items-center gap-1 hover:text-accent transition-colors py-1"
+          >
+            <span>Scroll to explore</span>
+            <motion.span
+              animate={shouldReduce ? {} : { y: [0, 3, 0] }}
+              transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+            >
+              <ChevronDown size={14} />
+            </motion.span>
+          </a>
+        </motion.div>
       </div>
     </section>
   );

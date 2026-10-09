@@ -34,10 +34,11 @@ export function Skills() {
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-[--border-subtle]">
             <SectionHeading
               overline="Skills Index"
-              heading="What I Work With"
+              heading="Technical Skills"
+              description="Languages, frameworks, databases, and developer tooling."
             />
             <span className="text-xs font-mono-text text-muted">
-              Hover any technology to see applied project context
+              Section 01 · Hover any technology to see applied context
             </span>
           </div>
         </AnimatedSection>

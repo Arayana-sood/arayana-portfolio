@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X, FileText } from 'lucide-react';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { ThemeToggle } from '@/components/shared/ThemeToggle';
 import { useScrollDirection } from '@/hooks/useScrollDirection';
 import { useActiveSection } from '@/hooks/useActiveSection';
@@ -10,29 +11,32 @@ import { cn } from '@/utils/cn';
 
 /* ─────────────────────────────────────────────────────────────────────────
    MINIMAL EDITORIAL NAVBAR
-   Inspired by the reference image:
-   Left: Arayana Sood.
-   Right: Work, About, Skills, Experience, Certificates, Contact, CV
+   Strictly follows verified CV section order:
+   Skills → Projects → Certificates → Achievements → Extra-Curricular → Education → Contact
    ─────────────────────────────────────────────────────────────────────────*/
 
 const NAV_LINKS = [
-  { href: '#work',         label: 'Work' },
-  { href: '#about',        label: 'About' },
-  { href: '#skills',       label: 'Skills' },
-  { href: '#experience',   label: 'Experience' },
-  { href: '#certificates', label: 'Certificates' },
-  { href: '#contact',      label: 'Contact' },
+  { href: '#skills',        label: 'Skills' },
+  { href: '#projects',      label: 'Projects' },
+  { href: '#certificates',  label: 'Certificates' },
+  { href: '#achievements',  label: 'Achievements' },
+  { href: '#activities',    label: 'Extra-Curricular' },
+  { href: '#education',     label: 'Education' },
+  { href: '#contact',       label: 'Contact' },
 ] as const;
 
 const SECTION_IDS = ['hero', ...NAV_LINKS.map((l) => l.href.slice(1))];
 
 export function Navbar() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const { direction, atTop } = useScrollDirection();
   const activeSection = useActiveSection(SECTION_IDS);
   const shouldReduce = useReducedMotion();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
+  const isHome = location.pathname === '/' || location.pathname === '';
   const isHidden = direction === 'down' && !atTop && !menuOpen;
 
   useEffect(() => {
@@ -54,12 +58,18 @@ export function Navbar() {
     (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
       e.preventDefault();
       setMenuOpen(false);
+
+      if (!isHome) {
+        navigate('/' + href);
+        return;
+      }
+
       const target = document.querySelector(href);
       if (target) {
         target.scrollIntoView({ behavior: shouldReduce ? 'auto' : 'smooth' });
       }
     },
-    [shouldReduce]
+    [isHome, navigate, shouldReduce]
   );
 
   return (
@@ -92,26 +102,28 @@ export function Navbar() {
           aria-label="Main navigation"
         >
           {/* Logo / Brand Name */}
-          <a
-            href="#"
+          <Link
+            to="/"
             onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({
-                top: 0,
-                behavior: shouldReduce ? 'auto' : 'smooth',
-              });
+              if (isHome) {
+                e.preventDefault();
+                window.scrollTo({
+                  top: 0,
+                  behavior: shouldReduce ? 'auto' : 'smooth',
+                });
+              }
             }}
             className="text-lg sm:text-xl font-editorial tracking-tight text-primary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--accent] rounded"
           >
             Arayana Sood<span className="text-accent">.</span>
-          </a>
+          </Link>
 
-          {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center gap-7">
-            <ul className="flex items-center gap-6" role="list">
+          {/* Desktop Navigation Links (CV Order) */}
+          <div className="hidden lg:flex items-center gap-6">
+            <ul className="flex items-center gap-5" role="list">
               {NAV_LINKS.map(({ href, label }) => {
                 const sectionId = href.slice(1);
-                const isActive = activeSection === sectionId;
+                const isActive = isHome && activeSection === sectionId;
 
                 return (
                   <li key={href}>
@@ -142,7 +154,7 @@ export function Navbar() {
               })}
             </ul>
 
-            <div className="flex items-center gap-3 pl-4 border-l border-[--border-subtle]">
+            <div className="flex items-center gap-3 pl-3 border-l border-[--border-subtle]">
               <ThemeToggle />
               <a
                 href={personal.resume}
@@ -190,7 +202,7 @@ export function Navbar() {
             <nav className="flex flex-col gap-2">
               {NAV_LINKS.map(({ href, label }, idx) => {
                 const sectionId = href.slice(1);
-                const isActive = activeSection === sectionId;
+                const isActive = isHome && activeSection === sectionId;
 
                 return (
                   <a
@@ -198,7 +210,7 @@ export function Navbar() {
                     href={href}
                     onClick={(e) => handleNavClick(e, href)}
                     className={cn(
-                      'py-3 px-4 rounded-xl text-lg font-editorial transition-colors flex items-center justify-between',
+                      'py-3 px-4 rounded-xl text-base font-editorial transition-colors flex items-center justify-between',
                       isActive
                         ? 'bg-[--accent-muted] text-accent font-medium'
                         : 'text-secondary hover:text-primary hover:bg-[--bg-hover]'
