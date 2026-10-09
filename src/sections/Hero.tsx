@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Github, Linkedin, ArrowUpRight, FileText, ChevronDown } from 'lucide-react';
 import { HeroVisual } from '@/components/shared/HeroVisual';
-import { NameConstellation } from '@/components/shared/NameConstellation';
+import { ArayanaConstellation } from '@/components/shared/ArayanaConstellation';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { personal } from '@/data/personal';
 import { cn } from '@/utils/cn';
@@ -82,8 +82,13 @@ export function Hero() {
             initial={shouldReduce ? false : 'hidden'}
             animate="show"
           >
-            {/* Tagline with subtle role rotator */}
-            <motion.div variants={shouldReduce ? {} : itemVariants}>
+            {/* Personal visual signature: Name & Arayana's Constellation */}
+            <motion.div variants={shouldReduce ? {} : itemVariants} className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+              <span className="text-xl sm:text-2xl font-editorial font-normal text-primary tracking-tight">
+                Arayana Sood
+              </span>
+              <ArayanaConstellation />
+              <span className="hidden sm:inline text-xs font-mono-text text-muted">/</span>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[--bg-surface] border border-[--border-subtle]">
                 <span className="w-1.5 h-1.5 rounded-full bg-[--accent] animate-pulse" aria-hidden />
                 <AnimatePresence mode="wait">
@@ -99,11 +104,6 @@ export function Hero() {
                   </motion.span>
                 </AnimatePresence>
               </div>
-            </motion.div>
-
-            {/* Elegant Name Constellation Accent */}
-            <motion.div variants={shouldReduce ? {} : itemVariants} className="-mb-1">
-              <NameConstellation />
             </motion.div>
 
             {/* Large Statement Headline */}
