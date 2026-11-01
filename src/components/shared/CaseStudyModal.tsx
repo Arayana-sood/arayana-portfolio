@@ -131,7 +131,7 @@ export function CaseStudyModal({ project, onClose }: CaseStudyModalProps) {
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono-text bg-white/10 border border-white/20 hover:border-[--accent] text-white hover:text-accent transition-colors font-semibold"
                   >
                     <FileText size={15} />
-                    <span>Read Research Paper</span>
+                    <span>{project.id === 'productpulse' ? 'Read Project Report' : 'Read Research Paper'}</span>
                   </a>
                 )}
                 {project.liveUrl && (

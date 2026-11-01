@@ -27,7 +27,7 @@ export const projects: Project[] = [
     category: 'AI & Healthcare',
     year: 'Sep 2026',
     githubUrl: 'https://github.com/Arayana-sood/NutriAI-personalized-diet-generation',
-    liveUrl: 'https://nutriai-personalized-diet-generation.onrender.com',
+    liveUrl: 'https://nutriai-personalized-diet-generation.onrender.com/',
     paperUrl: getAssetUrl('research/HealthRiskAI_Research_Paper.pdf'),
     caseStudy: {
       overview:
@@ -82,8 +82,93 @@ export const projects: Project[] = [
     },
   },
   {
-    id: 'shellquest',
+    id: 'productpulse',
     number: '02',
+    title: 'ProductPulse',
+    subtitle: 'E-Commerce Churn Prediction & Behavioral Cohort Segmentation',
+    description:
+      'Engineered an end-to-end data science framework on 3.5M+ e-commerce events (273K+ users) using Linear SVM, K-Means clustering, and PCA with a high-speed FastAPI backend and React 19 dashboard.',
+    tags: [
+      'Python',
+      'Scikit-learn',
+      'Linear SVM',
+      'K-Means',
+      'PCA',
+      'FastAPI',
+      'React 19',
+      'TypeScript',
+      'Tailwind CSS',
+      'Recharts',
+      'Render',
+      'Vercel',
+    ],
+    category: 'Data Science & ML',
+    year: 'Dec 2026',
+    githubUrl: 'https://github.com/Arayana-sood/ProductPulse',
+    liveUrl: 'https://product-pulse-nine.vercel.app/',
+    paperUrl: getAssetUrl('research/ProductPulse_Project_Report.pdf'),
+    caseStudy: {
+      overview:
+        'ProductPulse is an interactive data science framework and production decision-support platform designed to predict customer churn, cluster user cohorts, and optimize revenue retention across digital retail. Built on a 3.5M+ clickstream event dataset (273,366 user analytical cohort), the system evaluates four classification algorithms, identifies behavioral segments via K-Means, projects behavioral trajectories onto a 2D PCA latent space, and provides interactive counterfactual sensitivity analysis through a React 19 dashboard and sub-10ms FastAPI backend.',
+      problem:
+        'Online retailers capture massive volumes of clickstream logs, yet raw event data fails to provide actionable user-level retention signals. Furthermore, extreme class imbalance (9.19% retained vs 90.81% at-risk) causes naive accuracy metrics to fail, while marketing teams lack intuitive tools to simulate how specific behavioral changes alter churn risk.',
+      whatBuilt:
+        'A complete end-to-end data science architecture comprising a temporal feature pipeline across 3.5M+ events, an optimal Linear SVM classification engine (F1: 0.3586, ROC-AUC: 0.7430), unsupervised K-Means cohort clustering (K=2, Silhouette: 0.8174), a 2D PCA dimensionality reduction visualizer (54.21% variance), an asynchronous FastAPI service on Render, and a responsive React 19 / Vite / Tailwind analytics dashboard deployed on Vercel.',
+      howItWorks: [
+        'Ingests 3.53M raw clickstream events from December 2019, applying a strict, leakage-free temporal split (Dec 1–21 observation vs Dec 22–31 target window) across 273,366 unique users.',
+        'Engineers 11 standardized user-level behavioral features including session counts, cart actions, purchase-to-view ratios, and activity span.',
+        'Evaluates four classification architectures, selecting soft-margin Linear SVM for superior minority-class balance and interpretable decision boundary gradients.',
+        'Applies K-Means clustering to distinguish between "Casual Explorers" (94.41% users, 7.40% retention) and "Highly Engaged Users" (5.59% users, 39.36% retention).',
+        'Exposes model inference, 2D PCA coordinates, and counterfactual sensitivity simulations over FastAPI REST endpoints to an interactive React 19 web platform.',
+      ],
+      technicalImplementation: [
+        {
+          heading: 'Machine Learning & Temporal Feature Engineering',
+          details: [
+            'Divided 3,533,286 events into non-overlapping temporal windows (Dec 1–21 observation, Dec 22–31 target) to guarantee zero look-ahead bias.',
+            'Engineered 11 behavioral features with Laplace-smoothed ratios and standardized using zero-mean unit-variance scaling.',
+            'Benchmarked 4 classification models: Linear SVM, Logistic Regression, Decision Tree (CART), and Random Forest on held-out test data (N=54,674).',
+            'Selected Linear SVM achieving highest F1-Score (0.3586) and ROC-AUC (0.7430) with explicit decision hyperplane formulation.',
+            'Partitioned user space via K-Means clustering (K=2, Silhouette 0.8174) and mapped 2D latent space with PCA (54.21% explained variance).',
+          ],
+        },
+        {
+          heading: 'FastAPI Backend & Sub-10ms Inference',
+          details: [
+            'Engineered low-latency Python FastAPI backend with Pydantic v2 validation and CORSMiddleware deployed on Render.',
+            'Created REST endpoints: GET /health, POST /predict (real-time single & counterfactual scoring), GET /stats, GET /models/metrics, and GET /pca-sample.',
+            'Serialized trained SVM estimators, scalers, and cluster centroids via Joblib for instant sub-10ms scoring.',
+          ],
+        },
+        {
+          heading: 'React 19 Interactive Analytics Dashboard',
+          details: [
+            'Built responsive single-page analytics application using React 19, TypeScript, Vite, and Tailwind CSS v4 deployed on Vercel.',
+            'Rendered interactive radar profiles, ROC-AUC comparison curves, PCA 2D scatter coordinates, and ROI sensitivity charts using Recharts.',
+            'Equipped dashboard with counterfactual sliders demonstrating real-time hyperplane crossing velocity.',
+          ],
+        },
+      ],
+      keyFeatures: [
+        'Trained on 3.53M+ events across 273,366 user analytical cohort with zero data leakage',
+        'Linear SVM classifier selected as top F1 performer (0.3586) with ROC-AUC of 0.7430',
+        'Unsupervised K-Means segmentation (Silhouette 0.8174) defining Casual vs Highly Engaged cohorts',
+        'PCA 2D dimensionality reduction capturing 54.21% of feature variance',
+        'Real-time counterfactual "what-if" tipping point calculator showing decision boundary movement',
+        'Illustrative retention economics engine calculating GMV preservation & CAC avoidance',
+        'Production deployment on Vercel (frontend) and Render (FastAPI backend)',
+      ],
+      challengesAndLearnings: [
+        'Resolving extreme 10:1 class imbalance (9.19% retained vs 90.81% at-risk) by prioritizing F1-score and ROC-AUC over deceptive raw accuracy.',
+        'Preventing data leakage by enforcing non-overlapping temporal observation (Dec 1–21) and target (Dec 22–31) windows.',
+        'Handling collinearity between product views and cart additions to accurately interpret SVM decision hyperplane coefficients.',
+        'Formulating rigorous retention economics with transparent disclaimer separating hypothetical modeling from causal proof.',
+      ],
+    },
+  },
+  {
+    id: 'shellquest',
+    number: '03',
     title: 'ShellQuest',
     subtitle: 'Interactive Linux Learning Platform with Live Terminal',
     description:
@@ -149,75 +234,6 @@ export const projects: Project[] = [
         'Managing terminal session states cleanly within React lifecycle hooks to prevent duplicate socket listeners.',
         'Crafting flexible challenge validation logic that verifies task completion accurately.',
         'Mastered practical WebSocket handling and stateful frontend architecture.',
-      ],
-    },
-  },
-  {
-    id: 'process-viz',
-    number: '03',
-    title: 'Process Lifecycle Viz',
-    subtitle: 'CPU Scheduling Simulator & Process State Visualizer',
-    description:
-      'An Operating System simulator visualizing 5 CPU scheduling algorithms (FCFS, SJF, SRTF, RR, Priority) with dynamic Gantt charts and process states.',
-    tags: [
-      'HTML5',
-      'CSS3',
-      'JavaScript',
-      'C',
-      'Canvas',
-      'Algorithms',
-    ],
-    category: 'Operating Systems / Visual',
-    year: 'Feb 2026',
-    githubUrl: 'https://github.com/Arayana-sood/Process-Lifecycle-visualization-tool',
-    liveUrl: undefined, // No live demo currently available
-    caseStudy: {
-      overview:
-        'An educational Operating System CPU scheduling simulator that models five core scheduling algorithms with dynamic process inputs, generating animated Gantt charts and real-time process lifecycle state transitions.',
-      problem:
-        'Operating system scheduling algorithms are traditionally taught with static chalkboard diagrams. Visualizing dynamic context switching, preemption interrupts, and ready queue changes in real time is challenging without interactive tools.',
-      whatBuilt:
-        'An interactive simulation environment combining algorithms implemented in C and JavaScript that animates process state transitions, renders synchronized Gantt charts, and computes turnaround and waiting time metrics.',
-      howItWorks: [
-        'User enters process arrival times, burst times, and priorities, or generates random process distributions.',
-        'User selects an algorithm: FCFS, SJF, SRTF (Preemptive SJF), Round Robin (custom time quantum), or Priority Scheduling.',
-        'The simulation engine computes timeline ticks, ready queue ordering, and preemption triggers.',
-        'The canvas renders an animated Gantt chart alongside state indicators (New, Ready, Running, Terminated) and an analytics table.',
-      ],
-      technicalImplementation: [
-        {
-          heading: 'Algorithm Simulation Engine',
-          details: [
-            'Authored core scheduling logic in C and JavaScript covering FCFS, SJF, SRTF, Round Robin, and Priority.',
-            'Modeled deterministic ready queue transitions and preemption boundaries.',
-          ],
-        },
-        {
-          heading: 'Canvas & State Visualization',
-          details: [
-            'Built dynamic timeline renderer using HTML5 Canvas for smooth visual time-scaling.',
-            'Illustrated process lifecycle state changes (Ready, Running, Terminated) with real-time cues.',
-          ],
-        },
-        {
-          heading: 'Comparative Metrics',
-          details: [
-            'Automated calculations of Waiting Time, Turnaround Time, and overall scheduler efficiency.',
-            'Enabled side-by-side performance comparisons across scheduling policies.',
-          ],
-        },
-      ],
-      keyFeatures: [
-        '5 algorithms implemented: FCFS, SJF, SRTF, Round Robin, and Priority Scheduling',
-        'Dynamic process parameter customization (Arrival, Burst, Priority, Time Quantum)',
-        'Synchronized animated Gantt chart with visual idle-time slots',
-        'Real-time process-state visualization (Ready, Running, Terminated)',
-        'Instant calculations for Waiting Time, Turnaround Time, and comparative metrics',
-      ],
-      challengesAndLearnings: [
-        'Handling tie-breaking rules and simultaneous process arrival events at time quantum boundaries.',
-        'Designing an intuitive Canvas drawing loop that maintains smooth responsiveness across varying process lengths.',
-        'Strengthened deep understanding of OS process control blocks, CPU scheduling, and context-switching mechanics.',
       ],
     },
   },

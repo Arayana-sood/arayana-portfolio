@@ -13,11 +13,11 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       {
         name: 'Python',
-        usedIn: ['NutriAI', 'Data analysis & ML work', 'ShellQuest'],
+        usedIn: ['ProductPulse', 'NutriAI', 'Data analysis & ML work'],
       },
       {
         name: 'C / C++',
-        usedIn: ['Process Lifecycle Visualization Tool'],
+        usedIn: ['Systems programming & algorithms'],
       },
       {
         name: 'JavaScript',
@@ -35,31 +35,31 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       {
         name: 'Pandas',
-        usedIn: ['NutriAI', 'Data preprocessing & analysis'],
+        usedIn: ['ProductPulse (3.5M+ events)', 'NutriAI', 'Data preprocessing'],
       },
       {
         name: 'NumPy',
-        usedIn: ['NutriAI', 'Numerical matrix operations'],
+        usedIn: ['ProductPulse (Vectorized math)', 'NutriAI'],
       },
       {
         name: 'Scikit-learn',
-        usedIn: ['NutriAI (6 classification models)'],
+        usedIn: ['ProductPulse (Linear SVM, K-Means, PCA)', 'NutriAI (6 models)'],
       },
       {
         name: 'Machine Learning',
-        usedIn: ['NutriAI (Heart, Kidney, Diabetes, etc.)'],
+        usedIn: ['ProductPulse (Customer churn & cohorts)', 'NutriAI'],
       },
       {
         name: 'Predictive Analytics',
-        usedIn: ['NutriAI', 'Academic projects'],
+        usedIn: ['ProductPulse', 'NutriAI'],
       },
       {
         name: 'Data Analysis',
-        usedIn: ['Tourism Analytics Dashboard', 'NutriAI'],
+        usedIn: ['Tourism Analytics Dashboard', 'ProductPulse', 'NutriAI'],
       },
       {
         name: 'Data Visualization',
-        usedIn: ['Tourism Analytics', 'Process Lifecycle Viz'],
+        usedIn: ['ProductPulse (Recharts & PCA)', 'Tourism Analytics'],
       },
     ],
   },
@@ -81,11 +81,11 @@ export const skillCategories: SkillCategory[] = [
       },
       {
         name: 'React',
-        usedIn: ['ShellQuest', 'Process Lifecycle Viz', 'Portfolio'],
+        usedIn: ['ProductPulse (React 19)', 'ShellQuest', 'Portfolio'],
       },
       {
         name: 'FastAPI',
-        usedIn: ['NutriAI backend API'],
+        usedIn: ['ProductPulse backend', 'NutriAI backend API'],
       },
       {
         name: 'Node.js',

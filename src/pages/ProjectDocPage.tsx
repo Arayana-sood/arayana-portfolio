@@ -55,7 +55,7 @@ export default function ProjectDocPage() {
   }, [projectId]);
 
   // Order of all projects for next/prev pagination
-  const projectOrder = ['nutriai', 'shellquest', 'process-viz', 'tourism-analytics'];
+  const projectOrder = ['nutriai', 'productpulse', 'shellquest', 'tourism-analytics'];
   const currentIndex = projectOrder.indexOf(projectId?.toLowerCase() || '');
   const prevProject = currentIndex > 0 ? projectDocs[projectOrder[currentIndex - 1]] : null;
   const nextProject = currentIndex < projectOrder.length - 1 ? projectDocs[projectOrder[currentIndex + 1]] : null;
@@ -200,7 +200,7 @@ export default function ProjectDocPage() {
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono-text border border-[--border] text-accent hover:border-[--accent] transition-colors bg-[--bg-surface]"
               >
                 <FileText size={14} />
-                <span>Read Research Paper (PDF)</span>
+                <span>{doc.id === 'productpulse' ? 'Read Project Report (PDF)' : 'Read Research Paper (PDF)'}</span>
                 <ExternalLink size={12} className="opacity-60" />
               </a>
             )}

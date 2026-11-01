@@ -33,7 +33,16 @@ const PROJECTS: ProjectItem[] = [
     tech: 'Python · FastAPI · Scikit-learn',
     highlight: '6 ML Models + Gemini API',
     icon: Sparkles,
-    url: 'https://github.com/Arayana-sood/NutriAI-personalized-diet-generation',
+    url: 'https://nutriai-personalized-diet-generation.onrender.com/',
+  },
+  {
+    id: 'productpulse',
+    name: 'ProductPulse',
+    category: 'Data Science & ML',
+    tech: 'Python · Scikit-learn · FastAPI',
+    highlight: 'E-Commerce Churn & Cohorts',
+    icon: Activity,
+    url: 'https://product-pulse-nine.vercel.app/',
   },
   {
     id: 'shellquest',
@@ -43,15 +52,6 @@ const PROJECTS: ProjectItem[] = [
     highlight: 'Interactive Linux Terminal',
     icon: Terminal,
     url: 'https://github.com/Arayana-sood/ShellQuest',
-  },
-  {
-    id: 'process-viz',
-    name: 'Process Scheduler',
-    category: 'Operating Systems',
-    tech: 'C · React · Canvas',
-    highlight: '5 CPU Algorithms & Gantt',
-    icon: Activity,
-    url: 'https://github.com/Arayana-sood/Process-Lifecycle-visualization-tool',
   },
   {
     id: 'tourism-analytics',

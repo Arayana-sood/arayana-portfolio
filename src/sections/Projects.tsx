@@ -166,7 +166,7 @@ export function Projects() {
                           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono-text border border-[--border] text-accent hover:border-[--accent] transition-colors bg-[--bg-surface]"
                         >
                           <FileText size={13} />
-                          <span>Read Paper</span>
+                          <span>{project.id === 'productpulse' ? 'Read Report' : 'Read Paper'}</span>
                         </a>
                       )}
                     </div>
