@@ -200,7 +200,13 @@ export default function ProjectDocPage() {
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono-text border border-[--border] text-accent hover:border-[--accent] transition-colors bg-[--bg-surface]"
               >
                 <FileText size={14} />
-                <span>{doc.id === 'productpulse' ? 'Read Project Report (PDF)' : 'Read Research Paper (PDF)'}</span>
+                <span>
+                  {doc.id === 'shellquest'
+                    ? 'Read IEEE Paper (PDF)'
+                    : doc.id === 'productpulse'
+                    ? 'Read Project Report (PDF)'
+                    : 'Read Research Paper (PDF)'}
+                </span>
                 <ExternalLink size={12} className="opacity-60" />
               </a>
             )}
